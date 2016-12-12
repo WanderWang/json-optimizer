@@ -21,7 +21,9 @@ export async function run(root) {
     console.log(deleted_keys);
 }
 
-let deleted_keys = {};
+let deleted_keys: {
+    [filepath: string]: string[]
+} = {};
 
 let isObject = (obj) => {
     return typeof obj == "object" && !(obj instanceof Array);
@@ -39,12 +41,14 @@ let isNumber = (obj) => {
     return typeof (obj) == 'number';
 }
 
-let mapper = (filePath) => {
+let mapper = (filePath: string) => {
+
+    var indexs = [];
 
     let remove = (obj, key) => {
+        console.log(indexs.join("."),"===>", obj[key]);
         delete obj[key];
         let v = deleted_keys[filePath];
-        // console.log(obj, "===>", key, typeof obj)
         if (v.indexOf(key) == -1) {
             v.push(key);
         }
@@ -58,6 +62,7 @@ let mapper = (filePath) => {
     function loop(obj) {
         if (isCollection(obj)) {
             for (var key in obj) {
+                indexs.push(key);
                 var value = obj[key];
                 if (isArray(value)) {
                     if (value.length == 0) {
@@ -85,9 +90,10 @@ let mapper = (filePath) => {
                     if (value != Math.floor(value)) {
                         obj[key] = value.toFixed(3);
                     }
-
                 }
+                indexs.pop();
             }
+
         }
 
     }
