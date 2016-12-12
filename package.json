@@ -1,0 +1,17 @@
+{
+  "bin": {
+    "json-optimizer": "lib/cli.js"
+  },
+  "dependencies": {
+    "egret-node-utils": "0.0.2"
+  },
+  "devDependencies": {},
+  "license": "ISC",
+  "main": "lib/index.js",
+  "name": "json-optimizer",
+  "optionalDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.3"
+}
